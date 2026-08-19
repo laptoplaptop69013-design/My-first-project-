@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Seat - Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: #05070d;
+}
+
+/* Background */
+.background {
+    position: fixed;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,.05) 1px, transparent 1px);
+    background-size: 45px 45px;
+    animation: gridMove 8s linear infinite;
+}
+
+@keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 45px 45px; }
+}
+
+/* Welcome screen */
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+.title {
+    position: absolute;
+    top: 8%;
+    text-align: center;
+}
+
+.title h1 {
+    font-size: clamp(25px, 5vw, 55px);
+    letter-spacing: 6px;
+}
+
+.title p {
+    margin-top: 12px;
+    color: #55ffff;
+    letter-spacing: 4px;
+}
+
+/* Seat */
+.seat {
+    position: relative;
+    width: 250px;
+    height: 330px;
+    margin-top: 100px;
+}
+
+.seat-back {
+    position: absolute;
+    width: 220px;
+    height: 210px;
+    left: 15px;
+    top: 0;
+    border-radius: 35px 35px 15px 15px;
+    background: linear-gradient(145deg, #303b4d, #111722);
+    border: 3px solid #49eaff;
+    box-shadow: 0 0 20px #00eaff;
+    transform-origin: bottom;
+    transition: 1s;
+}
+
+.seat-bottom {
+    position: absolute;
+    width: 250px;
+    height: 70px;
+    bottom: 45px;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #374255, #10151f);
+    border: 3px solid #49eaff;
+    box-shadow: 0 0 25px #00eaff;
+}
+
+.leg {
+    position: absolute;
+    width: 18px;
+    height: 55px;
+    bottom: 0;
+    background: #18202d;
+    border: 2px solid #42eaff;
+}
+
+.leg.left {
+    left: 35px;
+}
+
+.leg.right {
+    right: 35px;
+}
+
+/* Open button */
+.open-btn {
+    position: absolute;
+    bottom: 8%;
+    padding: 15px 35px;
+    border: 2px solid #00ffff;
+    border-radius: 30px;
+    background: transparent;
+    color: #00ffff;
+    font-size: 18px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0,255,255,.5);
+}
+
+.open-btn:hover {
+    background: #00ffff;
+    color: #061018;
+}
+
+/* Login page */
+.login-page {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at center, #10283a, #030509 70%);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: 1s ease;
+}
+
+.login-page.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* Login box */
+.login-box {
+    width: min(88%, 380px);
+    padding: 40px 30px;
+    border: 2px solid #00ffff;
+    border-radius: 25px;
+    background: rgba(8, 18, 30, .9);
+    box-shadow:
+        0 0 25px #00ffff,
+        inset 0 0 25px rgba(0,255,255,.1);
+    text-align: center;
+}
+
+.login-box h2 {
+    font-size: 32px;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    color: #62ffff;
+    margin-bottom: 30px;
+}
+
+/* Inputs */
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #00ffff;
+    border-radius: 10px;
+    outline: none;
+    background: rgba(0,0,0,.4);
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0,255,255,.2);
+}
+
+.input-box input::placeholder {
+    color: #8ca9ad;
+}
+
+/* Login button */
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    background: transparent;
+    color: #00ffff;
+    font-size: 17px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.login-btn:hover {
+    background: #00ffff;
+    color: #061018;
+    box-shadow: 0 0 25px #00ffff;
+}
+
+/* Small animation */
+@keyframes glow {
+    50% {
+        box-shadow: 0 0 40px #00ffff;
+    }
+}
+
+.login-box {
+    animation: glow 2s infinite;
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- FUTURE SEAT SCREEN -->
+<div class="scene" id="scene">
+
+    <div class="title">
+        <h1>THE FUTURE IS HERE</h1>
+        <p>SMART SEAT TECHNOLOGY</p>
+    </div>
+
+    <div class="seat">
+
+        <div class="seat-back"></div>
+
+        <div class="seat-bottom"></div>
+
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+
+    </div>
+
+    <button class="open-btn" onclick="openLogin()">
+        OPEN
+    </button>
+
+</div>
+
+<!-- LOGIN PAGE -->
+<div class="login-page" id="loginPage">
+
+    <div class="login-box">
+
+        <h2>WELCOME</h2>
+
+        <p>ACCESS THE FUTURE</p>
+
+        <div class="input-box">
+            <input type="text" placeholder="Username">
+        </div>
+
+        <div class="input-box">
+            <input type="password" placeholder="Password">
+        </div>
+
+        <button class="login-btn" onclick="login()">
+            LOGIN
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+function openLogin() {
+
+    // Hide the seat screen
+    document.getElementById("scene").style.opacity = "0";
+    document.getElementById("scene").style.transform = "scale(0.8)";
+
+    // Wait for animation
+    setTimeout(function() {
+
+        // Show login page
+        document.getElementById("loginPage").classList.add("show");
+
+    }, 700);
+}
+
+function login() {
+
+    alert("Welcome to the future! 🚀");
+
+}
+
+</script>
+
+</body>
+</html>
